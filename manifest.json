@@ -1,0 +1,65 @@
+{
+  "manifest_version": 3,
+  "name": "foxViewer",
+  "version": "0.2.0",
+  "description": "Расширение для чатов стримов: GIF и стикеры (/tenor <ID>) без сервера. Сейчас: YouTube, VK Видео.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://tenor.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background/background.js",
+    "scripts": [
+      "src/background/background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/live_chat*"
+      ],
+      "all_frames": true,
+      "run_at": "document_idle",
+      "css": [
+        "src/features/gifs/gifs.css"
+      ],
+      "js": [
+        "src/core/core.js",
+        "src/core/adapter-base.js",
+        "src/features/gifs/picker.js",
+        "src/features/gifs/renderer.js",
+        "src/features/gifs/index.js",
+        "src/platforms/youtube.js",
+        "src/main.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://vkvideo.ru/*",
+        "https://*.vkvideo.ru/*"
+      ],
+      "all_frames": true,
+      "run_at": "document_idle",
+      "css": [
+        "src/features/gifs/gifs.css"
+      ],
+      "js": [
+        "src/core/core.js",
+        "src/core/adapter-base.js",
+        "src/features/gifs/picker.js",
+        "src/features/gifs/renderer.js",
+        "src/features/gifs/index.js",
+        "src/platforms/vkvideo.js",
+        "src/main.js"
+      ]
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "foxviewer@local.example",
+      "strict_min_version": "115.0"
+    }
+  }
+}

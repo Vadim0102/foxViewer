@@ -1,0 +1,31 @@
+/* кнопка рядом со стандартным эмодзи */
+yt-live-chat-message-input-renderer #emoji-picker-button { display: flex; align-items: center; }
+.foxv-trigger {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%;
+  background: transparent; color: var(--yt-spec-icon-inactive, #aaa); cursor: pointer;
+}
+.foxv-trigger:hover { background: var(--yt-spec-badge-chip-background, rgba(128,128,128,.25)); }
+.foxv-trigger span {
+  font: 700 10px/1 Roboto, Arial, sans-serif;
+  border: 1.5px solid currentColor; border-radius: 4px; padding: 3px 4px;
+}
+
+/* отрендеренное сообщение: ник сверху, гифка на новой строке под ним (как в Discord) */
+.foxv-has { display: block !important; font-size: 0 !important; line-height: 0 !important; margin-top: 4px !important; }
+.foxv-wrap {
+  display: block; box-sizing: border-box;
+  height: 200px;               /* фиксированная высота: чат не «прыгает» при подгрузке */
+  width: 200px;                /* до загрузки; потом выставляем по пропорциям гифки */
+  max-width: 100%;
+  overflow: hidden; border-radius: 10px;
+  background: rgba(128,128,128,.15);
+  font-size: 12px; line-height: normal;
+}
+.foxv-wrap:not(.loading) { background: transparent; }
+.foxv-media { display: block; width: 100%; height: 100%; object-fit: contain; object-position: left center; }
+
+/* VK Видео: кнопка рядом с кнопкой смайлов, цвета берём у VKUI */
+.foxv-trigger--vk { width: 28px; height: 28px; flex: none; margin: 0 2px; color: var(--vkui--color_icon_secondary, #909499); }
+.foxv-trigger--vk:hover { color: var(--vkui--color_icon_primary, #e1e3e6); background: var(--vkui--color_transparent_hover, rgba(255,255,255,.08)); }
+.foxv-trigger--vk span { font-family: inherit; font-weight: 700; font-size: 9px; line-height: 1; padding: 2px 3px; }

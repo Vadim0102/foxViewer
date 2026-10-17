@@ -1,0 +1,30 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run check
+      - run: npm run lint
+
+      - name: Тег должен совпадать с версией в manifest.json
+        run: |
+          V=$(node -p "require('./manifest.json').version")
+          [ "v$V" = "$GITHUB_REF_NAME" ] || { echo "Тег $GITHUB_REF_NAME, а в manifest $V"; exit 1; }
+
+      - run: npm run build
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: web-ext-artifacts/*.zip
+          generate_release_notes: true

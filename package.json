@@ -1,0 +1,43 @@
+{
+  "name": "foxviewer",
+  "version": "0.2.0",
+  "private": true,
+  "description": "foxViewer — расширение для чатов стримов",
+  "license": "MIT",
+  "scripts": {
+    "start:firefox": "web-ext run",
+    "lint": "web-ext lint",
+    "build": "web-ext build",
+    "check": "node scripts/check.mjs"
+  },
+  "devDependencies": {
+    "web-ext": "^8.0.0"
+  },
+  "webExt": {
+    "sourceDir": ".",
+    "artifactsDir": "web-ext-artifacts",
+    "ignoreFiles": [
+      "docs",
+      "scripts",
+      "README.md",
+      "LICENSE",
+      "package.json",
+      "package-lock.json",
+      "node_modules",
+      "web-ext-artifacts",
+      ".github",
+      ".gitignore",
+      ".editorconfig"
+    ],
+    "build": {
+      "overwriteDest": true
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "foxviewer@local.example",
+      "strict_min_version": "115.0",
+      "data_collection_permissions": { "required": ["none"] }
+    }
+  }
+}
